@@ -1,8 +1,10 @@
 
 @if (product()) {
-  <p>
-    You selected: 
-    <strong>{{product()!.title}}</strong>
-  </p>
-  <button (click)="addToCart()">Add To Cart</button>
+  <div>
+    <p>
+      You selected: 
+      <strong>{{productTitle}}</strong>
+    </p>
+    <button (click)="addToCart()">Add To Cart</button>
+  </div>
 }
