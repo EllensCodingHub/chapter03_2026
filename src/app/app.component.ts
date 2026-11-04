@@ -10,7 +10,7 @@ import { NumericDirective } from './numeric.directive';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
   providers: [
-    { provide: APP_SETTINGS, useVAlue: appSettings }
+    { provide: APP_SETTINGS, useValue: appSettings }
   ]
 })
 export class AppComponent {
@@ -18,7 +18,8 @@ export class AppComponent {
   settings = inject(APP_SETTINGS);
 
   private setTitle = () => {
-    this.title = this.settings.title;
+    const timeStamp = new Date();
+    this.title = `${this.settings.title} (${timeStamp})`;
   }
 
   private changeTitle(callback: Function) {
@@ -34,7 +35,7 @@ export class AppComponent {
 
   private onComplete() {
     return new Promise<void>(resolve => {
-      setTimeout(() => {
+      setInterval(() => {
         resolve();
       }, 2000);
     });
