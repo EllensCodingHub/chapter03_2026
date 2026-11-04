@@ -3,12 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { CopyrightDirective } from './copyright.directive';
 import { NumericDirective } from './numeric.directive';
+import { APP_SETTINGS, appSettings } from './app.settings';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ProductListComponent, CopyrightDirective, NumericDirective],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
   providers: [
     { provide: APP_SETTINGS, useValue: appSettings }
   ]
@@ -30,7 +32,8 @@ export class AppComponent {
 
   constructor() {
     // this.changeTitle(this.setTitle); // using callbacks
-    this.onComplete().then(this.setTitle); // using Promises is a better way
+    // this.onComplete().then(this.setTitle); // using Promises is a better way
+    this.title$.subscribe(this.setTitle);
   }
 
   private onComplete() {
@@ -40,4 +43,10 @@ export class AppComponent {
       }, 2000);
     });
   }
+
+  title$ = new Observable(observer => {
+    setInterval(() => {
+      observer.next(this.setTitle);
+    }, 2000);
+  });
 }
