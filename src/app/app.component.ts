@@ -28,7 +28,15 @@ export class AppComponent {
   }
 
   constructor() {
-    this.changeTitle(this.setTitle);
+    // this.changeTitle(this.setTitle); // using callbacks
+    this.onComplete().then(this.setTitle); // using Promises is a better way
   }
-  
+
+  private onComplete() {
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 }
