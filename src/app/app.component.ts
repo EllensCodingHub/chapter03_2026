@@ -9,7 +9,26 @@ import { NumericDirective } from './numeric.directive';
   imports: [RouterOutlet, ProductListComponent, CopyrightDirective, NumericDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
+  providers: [
+    { provide: APP_SETTINGS, useVAlue: appSettings }
+  ]
 })
 export class AppComponent {
   title = 'ch032026';
+  settings = inject(APP_SETTINGS);
+
+  private setTitle = () => {
+    this.title = this.settings.title;
+  }
+
+  private changeTitle(callback: Function) {
+    setTimeout(() => {
+      callback();
+    }, 2000)
+  }
+
+  constructor() {
+    this.changeTitle(this.setTitle);
+  }
+  
 }
