@@ -4,7 +4,7 @@
       <app-product-list></app-product-list>
   </div>
 </main>
-<footer appCopyright></footer>
+<footer appCopyright> -v{{ settings.version }}</footer>
 
 <input appNumeric />
 
@@ -18,4 +18,4 @@
 
 
 <router-outlet />
-<app-key-logger></app-key-logger>
+<app-key-logger [numeric]="true"></app-key-logger>

@@ -6,6 +6,7 @@
       <strong>{{productTitle}}</strong>
     </p>
     <p>{{product()!.price | currency:'CAD'}}</p>
+
     <div class="pill-group">
       @for (cat of product()!.categories | keyvalue; track cat.key) {
         <p class="pill">
@@ -13,6 +14,7 @@
         </p>
       }
     </div>
+    
     <button (click)="addToCart()">Add To Cart</button>
   </div>
 }

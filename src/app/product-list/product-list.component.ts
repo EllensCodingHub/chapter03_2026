@@ -1,24 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Product } from '../product';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { SortPipe } from '../sort.pipe';
+import { ProductsService } from '../products.service';
+import { FavoritesComponent } from '../favorites/favorites.component';
+import { ProductViewComponent } from '../product-view/product-view.component';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductDetailComponent, SortPipe],
+  imports: [ProductDetailComponent, SortPipe, FavoritesComponent, ProductViewComponent],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
+  styleUrl: './product-list.component.css',
+  providers: [ProductsService]
 })
-export class ProductListComponent {
-  products: Product[] = [
-    { id: 1, title: 'Keyboard', price: 100, categories: { 1: 'Computing', 2: 'Peripherals'} },
-    { id: 2, title: 'Microphone', price: 35, categories: { 3: 'Multimedia' } },
-    { id: 3, title: 'Web Cam', price: 79, categories: { 1: 'Computing', 3: 'Multimedia' } },
-    { id: 4, title: 'Tablet', price: 500, categories: { 4: 'Entertainment' } }
-  ];
+export class ProductListComponent implements OnInit {
+  products: Product[] = [];
   selectedProduct: Product | undefined;
+  // private productService: ProductsService;
+  private productService = inject(ProductsService);
 
+  /* constructor(private productService: ProductsService) {
+    this.productService = new ProductsService();
+  } */
+
+  ngOnInit(): void {
+    // this.products = this.productService: ProductsService) {
+    this.getProducts();
+  }
   onAdded(product: Product) {
     alert(`${product.title} added to the cart!`);
+  }
+
+  private getProducts() {
+    this.productService.getProducts().subscribe(products => {
+      this.products = products;
+    })
   }
 }

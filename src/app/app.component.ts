@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { CopyrightDirective } from './copyright.directive';
